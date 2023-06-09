@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "920404512310",
+    "project_id": "bank-project-17eaf",
+    "storage_bucket": "bank-project-17eaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:920404512310:android:116bc0a0de572e326ed297",
+        "android_client_info": {
+          "package_name": "com.bank.iraq_bank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "920404512310-dl2kqlk3gu8kql9cm8moirk0nqaku3jl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmIcq6XarLqcW-Y5kbSpcIdE_ITWnY6wA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "920404512310-dl2kqlk3gu8kql9cm8moirk0nqaku3jl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
