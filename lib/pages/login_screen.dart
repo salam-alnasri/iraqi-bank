@@ -7,10 +7,20 @@ import 'package:iraq_bank/widget/drawerr.dart';
 import 'package:iraq_bank/widget/loading.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
+import 'package:local_session_timeout/local_session_timeout.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+//===================================تسجيل الخروج التلقائي الكود رقم 4 في صفحة تسجيل الدخول
+  Login({
+    required this.sessionStateStream,
+    super.key,
+    // required ThemeData theme,
+  });
 
+  final StreamController<SessionState> sessionStateStream;
+  late String loggedOutReason;
+  //=======================================
   @override
   State<Login> createState() => _LoginState();
 }
@@ -39,11 +49,7 @@ class _LoginState extends State<Login> {
   }
 
   t(String i) async {
-    var check = await FirebaseFirestore.instance
-        .collection('users')
-        .where('userid', isEqualTo: i)
-        .limit(1)
-        .get();
+    var check = await FirebaseFirestore.instance.collection('users').where('userid', isEqualTo: i).limit(1).get();
 
     if (check.docs.length == 1) {
       // print('ddddddddd');
@@ -51,10 +57,7 @@ class _LoginState extends State<Login> {
       // print(check.docs[0].data()['Name']);
       String? to = await FirebaseMessaging.instance.getToken();
 
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(check.docs[0].id)
-          .update({'token': to});
+      await FirebaseFirestore.instance.collection('users').doc(check.docs[0].id).update({'token': to});
     }
   }
 
@@ -81,12 +84,9 @@ class _LoginState extends State<Login> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 2.8,
-                    child: Image.asset(
-                        "images/Bank1.jpg"), // صورة ترحيبية توضح طبيعة عمل البنك
+                    child: Image.asset("images/Bank1.jpg"), // صورة ترحيبية توضح طبيعة عمل البنك
                   ),
-                  SizedBox(
-                      height:
-                          MediaQuery.of(context).size.height / 30), //+++++++
+                  SizedBox(height: MediaQuery.of(context).size.height / 30), //+++++++
 
                   TextFormField(
                     //================================ حقل ادخال الايميل
@@ -110,9 +110,7 @@ class _LoginState extends State<Login> {
                     },
                     onSaved: (value) => email = value!,
                   ),
-                  SizedBox(
-                      height:
-                          MediaQuery.of(context).size.height / 40), //+++++++
+                  SizedBox(height: MediaQuery.of(context).size.height / 40), //+++++++
 
                   TextFormField(
                     //==================================  حقل ادخال الباسوورد
@@ -128,9 +126,7 @@ class _LoginState extends State<Login> {
                             _passwordvisible = !_passwordvisible;
                           });
                         },
-                        icon: _passwordvisible
-                            ? const Icon(Icons.visibility)
-                            : const Icon(Icons.visibility_off),
+                        icon: _passwordvisible ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
                       ),
                       border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(
@@ -147,20 +143,20 @@ class _LoginState extends State<Login> {
                     onSaved: (value) => email = value!,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height / 20),
+                  //================================================================ زر تسجيل الدخول
 
                   SocialLoginButton(
                     buttonType: SocialLoginButtonType.generalLogin,
                     onPressed: () async {
+                      widget.sessionStateStream.add(SessionState.startListening); //============================ الكود رقم 5
+
                       //___________________________________________________
                       try {
                         showLoading(context); //Loading ..........
-                        await auth
-                            .signInWithEmailAndPassword(
-                                email: email, password: password)
-                            .then(
-                                (value) => {}); // مصادقة الفايربيس FirebaseAuth
+                        await auth.signInWithEmailAndPassword(email: email, password: password).then((value) => {}); // مصادقة الفايربيس FirebaseAuth
                         await t(FirebaseAuth.instance.currentUser!.uid);
-                        Get.off(() => const BottomNB());
+
+                        await Get.off(() => BottomNB(sessionStateStream: widget.sessionStateStream));
                       } catch (e) {
                         print(e.toString());
                         print(FirebaseAuth.instance.currentUser!.uid);
@@ -193,9 +189,7 @@ class _LoginState extends State<Login> {
                       style: TextStyle(color: Colors.blue),
                     ),
                   ),
-                  SizedBox(
-                      height:
-                          MediaQuery.of(context).size.height / 20), //+++++++
+                  SizedBox(height: MediaQuery.of(context).size.height / 20), //+++++++
 
                   SocialLoginButton(
                     //  زر انشار الحساب بواسطة ايميل كوكل

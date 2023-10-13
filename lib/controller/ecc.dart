@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:encrypt/encrypt.dart' as encrypt;
 
-
-
-
+//   الكود الاساسي الخاص بدمج الخوارزميتين مع بعض في حالة التشفير وفك التشفير 
+//
+// الكود المدمج الخاص بالتشفير
 class Ecc {
 // Encrypt a string
   static const String k = 'q1wertyuiopasd0fghjklz5x6c7v8b9n';
@@ -18,6 +18,7 @@ class Ecc {
     return base64.encode(encrypted.bytes);
   }
 
+// الكود المدمج الخاص بفك تشفير الترميز
 // Decrypt a string
   String decryption(String cipherText) {
     final key = encrypt.Key.fromUtf8(k);
@@ -29,9 +30,3 @@ class Ecc {
     return decrypted;
   }
 }
-
-
-
-
-
- 

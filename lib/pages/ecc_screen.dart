@@ -42,37 +42,36 @@ class _ECCState extends State<ECC> {
     final result = await ImageGallerySaver.saveImage(image, name: name);
   }
 
-  //------------------------------------------ ECC Function
+  //------------------------------------------ ECC Function and generat QR
 
   void encryption() {
-     final startTime1 = DateTime.now(); //++++++++++
+     final startTime1 = DateTime.now(); //++++++++++// لقياس زمن تنفيذ الكود
     setState(() {
       cipherTextBankAccount = Ecc().encryption(acounttext.text);
       cipherTextamount = Ecc().encryption(amounttext.text);
       _isEncryption = true;
     });
-     final endTime1 = DateTime.now(); // ======
-    final elapsedMilliseconds1 = endTime1.difference(startTime1).inMilliseconds;
-    print('Elapsed time 1 : $elapsedMilliseconds1 milliseconds');
+     final endTime1 = DateTime.now(); // ======// لقياس زمن تنفيذ الكود
+    final elapsedMilliseconds1 = endTime1.difference(startTime1).inMilliseconds; // لقياس زمن تنفيذ الكود
+    print('Elapsed time 1 : $elapsedMilliseconds1 milliseconds'); // لقياس زمن تنفيذ الكود
   }
 
-  //------------------------------------------
- 
+  //------------------------------------------ QRلتحويل النص المشفر الى 
   void qrData() {
-   final startTime2 = DateTime.now(); //++++++++++
+   final startTime2 = DateTime.now(); //++++++++++// لقياس زمن تنفيذ الكود
 
     setState(() {
       _qrData = '$cipherTextBankAccount ,$cipherTextamount,';
 
       _isQRGenerated = true;
     });
-   final endTime2 = DateTime.now(); // ======
-    final elapsedMilliseconds2 = endTime2.difference(startTime2).inMilliseconds;
-    print('Elapsed time 2 : $elapsedMilliseconds2 milliseconds');
+   final endTime2 = DateTime.now(); // ======// لقياس زمن تنفيذ الكود
+    final elapsedMilliseconds2 = endTime2.difference(startTime2).inMilliseconds;// لقياس زمن تنفيذ الكود
+    print('Elapsed time 2 : $elapsedMilliseconds2 milliseconds');// لقياس زمن تنفيذ الكود
   }
 
   //-----------------------------------------
-  final timer = Timer(const Duration(milliseconds: 100), () => print('Timer finished'));
+  final timer = Timer(const Duration(milliseconds: 100), () => print('Timer finished'));// لقياس زمن تنفيذ الكود
   @override
   Widget build(BuildContext context) {
     return Scaffold(

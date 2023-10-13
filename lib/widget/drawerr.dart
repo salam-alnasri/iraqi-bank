@@ -9,6 +9,8 @@ import 'package:iraq_bank/pages/person_screen.dart';
 import 'package:iraq_bank/pages/qr_scanner.dart';
 import 'package:iraq_bank/widget/button_mode.dart';
 
+import 'dart:async';
+
 class Drawerr extends StatelessWidget {
   const Drawerr({super.key});
 
@@ -127,7 +129,7 @@ class Drawerr extends StatelessWidget {
 
               TextButton.icon(
                 onPressed: () {
-                  Get.off(() => const Login());
+                  // Get.off(() => Login(sessionStateStream: sessionStateStream));
                 },
                 icon: const Icon(Icons.logout),
                 label: const Text("LogOut"),

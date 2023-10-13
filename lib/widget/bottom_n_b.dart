@@ -5,9 +5,19 @@ import 'package:iraq_bank/pages/ecc_screen.dart';
 import 'package:iraq_bank/pages/home_screen.dart';
 import 'package:iraq_bank/pages/person_screen.dart';
 import 'package:iraq_bank/pages/qr_scanner.dart';
+import 'dart:async';
+
+import 'package:local_session_timeout/local_session_timeout.dart';
 
 class BottomNB extends StatefulWidget {
-  const BottomNB({super.key});
+  //========================================================== الكود رقم 6
+  final StreamController<SessionState> sessionStateStream;
+
+  const BottomNB({
+    required this.sessionStateStream,
+    super.key,
+  });
+  //=====================================
 
   @override
   BottomNBState createState() => BottomNBState();
@@ -37,11 +47,11 @@ class BottomNBState extends State<BottomNB> {
         //
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "الرئيسية"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'الصفحة الشخصية'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'الشخصية'),
           BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: 'البطاقات'),
           BottomNavigationBarItem(icon: Icon(Icons.qr_code_scanner), label: 'Qr مسح '),
-          BottomNavigationBarItem(icon: Icon(Icons.lock), label: 'ECC'),
-          BottomNavigationBarItem(icon: Icon(Icons.lock_open_rounded), label: 'ECC Dec'),
+          BottomNavigationBarItem(icon: Icon(Icons.lock), label: 'تشفير'),
+          BottomNavigationBarItem(icon: Icon(Icons.lock_open_rounded), label: 'فك التشفير'),
         ],
         currentIndex: _selectedIndex,
 

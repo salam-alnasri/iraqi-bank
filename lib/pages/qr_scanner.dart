@@ -20,9 +20,10 @@ class _QrScannerState extends State<QrScanner> {
     super.initState();
   }
 
+// مسح وترجمة الباركورد المشفر
+
   Future<void> scanQR() async {
     String barcodeScanRes;
-
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
         '#ff6666',
@@ -41,7 +42,7 @@ class _QrScannerState extends State<QrScanner> {
       _scanBarcode = barcodeScanRes;
     });
   }
-
+//
   @override
   Widget build(BuildContext context) {
     return Scaffold(
